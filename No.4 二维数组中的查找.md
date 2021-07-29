@@ -74,8 +74,7 @@ public:
 ```
 ![](image-kqdi77ok.png)
 
-作者：jyd
-链接：https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/solution/mian-shi-ti-04-er-wei-shu-zu-zhong-de-cha-zhao-zuo/
+
 
 ## 知识点
 * ### 遍历的时候可以多换下思路
