@@ -28,7 +28,7 @@ tags: []
 
 输入：root = [4,2,7,1,3,6,9]
 输出：[4,7,2,9,6,3,1]
- 
+
 
 限制：
 
@@ -52,15 +52,22 @@ public:
         if (root == nullptr) {
             return nullptr;
         }
-        TreeNode* left = mirrorTree(root->left);
-        TreeNode* right = mirrorTree(root->right);
-        root->left = right;
-        root->right = left;  
+        TreeNode* left = mirrorTree(root->left);  //目的是为找到二叉树的左节点
+        TreeNode* right = mirrorTree(root->right);  //目的是为找到二叉树的右节点
+        root->left = right;  //将二叉树的右节点替换为左节点
+        root->right = left;  //将二叉树的左节点替换为右节点
         return root;
     }
 };
 ```
+## 解题思路
+
+### 1. 写递归的入口
+
+### 2. 递归返回时需要做的操作
+
 ## 知识点
+
 * 二叉树
 * c++的结构体
 * c++定义指针变量的方式有几种

@@ -1,8 +1,3 @@
----
-title: 用两个栈实现队列
-tags: []
----
-
 # No.9 用两个栈实现队列
 ## 题目描述
 用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，deleteHead 操作返回 -1 )
@@ -29,7 +24,7 @@ tags: []
 class CQueue {
 public:
     stack<int> s1;
-    stack<int> s2;
+    stack<int> s2;  //stack的定义
     CQueue() {
         // while (!s1.empty()) {
         //     s1.pop();
@@ -40,19 +35,19 @@ public:
     }
     
     void appendTail(int value) {
-        s1.push(value);
+        s1.push(value);     //将元素入栈
     }
     
     int deleteHead() {
         if (s2.empty()){
             if(s1.empty())
-                return -1;
+                return -1;    //如果两个栈都是空的，那就返回-1
             else
             {
                 while(!s1.empty())
                 {
-                    s2.push(s1.top());
-                    s1.pop();
+                    s2.push(s1.top());   //将1栈的元素分别弹出，再依次入2栈
+                    s1.pop();            //但C++需要先取1栈的top元素,再执行pop
                 }
             }   
         }
@@ -71,37 +66,55 @@ public:
 ```
 * ### 题解中看到的好的解决方案
 ```c++
-class Solution {
+class CQueue {
+    stack<int> stack1,stack2;
 public:
-    string replaceSpace(string s) {
-        int count = 0; // 统计空格的个数
-        int sOldSize = s.size();
-        for (int i = 0; i < s.size(); i++) {
-            if (s[i] == ' ') {
-                count++;
-            }
+    CQueue() {
+        while (!stack1.empty()) {
+            stack1.pop();
         }
-        // 扩充字符串s的大小，也就是每个空格替换成"%20"之后的大小
-        s.resize(s.size() + count * 2);
-        int sNewSize = s.size();
-        // 从后先前将空格替换为"%20"
-        for (int i = sNewSize - 1, j = sOldSize - 1; j < i; i--, j--) { //当i=j也就是，空格替换完后跳出循环
-            if (s[j] != ' ') {
-                s[i] = s[j];
-            } else {
-                s[i] = '0';
-                s[i - 1] = '2';
-                s[i - 2] = '%';
-                i -= 2;
-            }
+        while (!stack2.empty()) {
+            stack2.pop();
         }
-        return s;
+    }
+    
+    void appendTail(int value) {
+        stack1.push(value);
+    }
+    
+    int deleteHead() {
+        // 如果第二个栈为空
+        if (stack2.empty()) {
+            while (!stack1.empty()) {
+                stack2.push(stack1.top());
+                stack1.pop();
+            }
+        } 
+        if (stack2.empty()) {
+            return -1;
+        } else {
+            int deleteItem = stack2.top();
+            stack2.pop();
+            return deleteItem;
+        }
     }
 };
 ```
+## 解题思路
+
+因为队列是先进的先出，但栈是先进的后出。因此，需要两个栈的配合来实现队列的功能。具体实现流程如下：
+
+1. 元素先依次入a栈
+2. a栈再依次将元素弹出
+3. b栈依次将a栈弹出的元素入栈，此时b栈内的元素顺序和最开始a栈内的顺序相反
+4. 此时再依次将元素从b栈弹出
+
+
+
 ## 知识点
+
 * ### stack<int'>
-    * #### stack::pop()
+    * #### stack::pop() 
     * #### stack::top()
     * #### stack::push()
 
